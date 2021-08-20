@@ -1,49 +1,24 @@
 import React, { useState } from "react";
-import InputForm from "./InputFormComponent";
+import JOBLIST from "../shared/jobListData";
 import Counters from "./CounterComponent";
+import InputForm from "./InputFormComponent";
+import JobListArea from "./JobListAreaComponent";
 
 const Main = () => {
-    const [jobList, setJobList] = useState([])
-    const [appliedCount, setAppliedCount] = useState(0)
-    const [rejectCount, setRejectCount] = useState(0)
-    const [offerCount, setOfferCount] = useState(0)
-    const [date, setDate] = useState('')
-    const [employer, setEmployer] = useState('')
-    const [position, setPosition] = useState('')
-    const [jobSource, setJobSource] = useState('')
-    const [status, setStatus] = useState('')
-    const [employerResponse, setEmployerResponse] = useState('')
-    const [notes, setNotes] = useState('')
+  const [jobListData, setJobListData] = useState(JOBLIST);
+  const [appliedCount, setAppliedCount] = useState(0);
+  const [rejectCount, setRejectCount] = useState(0);
+  const [offerCount, setOfferCount] = useState(0);
 
-    return (
-        <>
-            <Counters 
-                jobsCount={jobList.length} 
-                appliedCount={appliedCount} 
-                rejectCount={rejectCount} 
-                offerCount={offerCount}    
-            />
+  return (
+    <>
+      <Counters jobsCount={jobListData.length} appliedCount={appliedCount} rejectCount={rejectCount} offerCount={offerCount} />
 
+      <InputForm  setJobListData={setJobListData}/>
 
-            <InputForm 
-                setDate={setDate} 
-                setEmployer={setEmployer} 
-                setPosition={setPosition} 
-                setJobSource={setJobSource} 
-                setStatus={setStatus} 
-                setEmployerResponse={setEmployerResponse} 
-                setNotes={setNotes} 
-            />
-
-            {date}
-            {employer}
-            {position}
-            {jobSource}
-            {status}
-            {employerResponse}
-            {notes}
-        </>
-    )
-}
+      <JobListArea jobs={jobListData} />
+    </>
+  );
+};
 
 export default Main;
