@@ -38,7 +38,7 @@ const InputForm = (props) => {
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
 
-        <select name="status" id="status" value={status ? status : "Saved"} onChange={(e) => setStatus(e.target.value)}>
+        <select name="status" id="status" value={status ? status : "saved"} onChange={(e) => setStatus(e.target.value)}>
           <option value="saved">Saved</option>
           <option value="applied">Applied</option>
           <option value="first-interview">1st Interview</option>

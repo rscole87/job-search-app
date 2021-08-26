@@ -1,1 +1,20 @@
-/* No CSS *//*# sourceMappingURL=App.css.map */
+.saved-job {
+  background-color: #ffe07a;
+}
+
+.applied-job {
+  background-color: #f6ff7a;
+}
+
+.first-interview {
+  background-color: #d0ff7a;
+}
+
+.second-interview {
+  background-color: #7aff7a;
+}
+
+.sthird-plus-interview {
+  background-color: #21e070;
+}
+/*# sourceMappingURL=App.css.map */
