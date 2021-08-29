@@ -12,6 +12,7 @@ const JobItem = (props) => {
   const [offer, setOffer] = useState(false);
   const [notes, setNotes] = useState(props.job.notes);
   const [editing, setEditing] = useState(false);
+  const jobItemKey = props.job.key;
 
   const checkAppliedStatus = () => {
     if (status !== "saved") {
@@ -93,6 +94,7 @@ const JobItem = (props) => {
 
           <div>
             <button onClick={() => setEditing(true)}>Edit</button>
+            <button onClick={() => props.deleteJobItem(jobItemKey)} >Delete</button>
           </div>
         </div>
       </div>
@@ -146,7 +148,7 @@ const JobItem = (props) => {
 
 const JobListArea = (props) => {
   const jobs = props.jobs.map((job, i) => {
-    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={i} />;
+    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem}/>;
   });
 
   return (

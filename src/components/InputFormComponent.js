@@ -17,6 +17,7 @@ const InputForm = (props) => {
     status,
     employerResponse,
     notes,
+    key: props.jobListData.length
   };
 
   const handleSubmit = (job) => {
