@@ -38,7 +38,7 @@ const InputForm = (props) => {
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
 
-        <select name="status" id="status" value={status ? status : "saved"} onChange={(e) => setStatus(e.target.value)}>
+        <select name="status" id="status" value={status ? status : setStatus("saved")} onChange={(e) => setStatus(e.target.value)}>
           <option value="saved">Saved</option>
           <option value="applied">Applied</option>
           <option value="first-interview">1st Interview</option>
@@ -47,7 +47,7 @@ const InputForm = (props) => {
         </select>
 
         <select name="response" id="response" value={employerResponse ? employerResponse : "None"} onChange={(e) => setEmployerResponse(e.target.value)}>
-          <option value=" "> </option>
+          <option value="pending">Awaiting Response</option>
           <option value="reject">Rejection</option>
           <option value="offer">Offer</option>
         </select>

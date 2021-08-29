@@ -5,7 +5,7 @@ import InputForm from "./InputFormComponent";
 import JobListArea from "./JobListAreaComponent";
 
 const Main = () => {
-  const [jobListData, setJobListData] = useState(JOBLIST);
+  const [jobListData, setJobListData] = useState([]);
   const [appliedCount, setAppliedCount] = useState(0);
   const [rejectCount, setRejectCount] = useState(0);
   const [offerCount, setOfferCount] = useState(0);
@@ -16,7 +16,7 @@ const Main = () => {
 
       <InputForm  setJobListData={setJobListData}/>
 
-      <JobListArea jobs={jobListData} />
+      <JobListArea jobs={jobListData} setAppliedCount={setAppliedCount} setRejectCount={setRejectCount} setOfferCount={setOfferCount}/>
     </>
   );
 };

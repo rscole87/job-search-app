@@ -8,29 +8,93 @@ const JobItem = (props) => {
   const [jobSource, setJobSource] = useState(props.job.jobSource);
   const [status, setStatus] = useState(props.job.status);
   const [employerResponse, setEmployerResponse] = useState(props.job.employerResponse);
+  const [rejected, setRejected] = useState(false);
+  const [offer, setOffer] = useState(false);
   const [notes, setNotes] = useState(props.job.notes);
   const [editing, setEditing] = useState(false);
 
-  if (!editing){
+  const checkAppliedStatus = () => {
+    if (status !== "saved") {
+      if (applied !== true) {
+        setApplied(true);
+        props.setAppliedCount((prev) => prev + 1);
+      } else {
+        setApplied(true);
+      }
+    } else {
+      if (applied !== false) {
+        setApplied(false);
+        props.setAppliedCount((prev) => prev - 1);
+      } else {
+        setApplied(false);
+      }
+    }
+  };
+
+  const checkResponseStatus = (employerResponse) => {
+    switch (employerResponse) {
+      case "pending": 
+        if (rejected === true){
+          setRejected(false)
+          props.setRejectCount(prev => prev - 1)
+        }
+
+        if(offer === true){
+          setOffer(false)
+          props.setOfferCount(prev => prev - 1)
+        }
+
+      case "reject":
+        if (rejected !== true) {
+          setRejected(true);
+          props.setRejectCount((prev) => prev + 1);
+        } else {
+          setRejected(true);
+        }
+
+        if(offer === true){
+          props.setOfferCount(prev => prev - 1)
+        }
+      
+        break;
+      case "offer":
+        if (offer !== true) {
+          setOffer(true);
+          props.setOfferCount((prev) => prev + 1);
+        } else {
+          setOffer(true);
+        }
+
+        if(rejected === true){
+          props.setRejectCount(prev => prev - 1)
+        }
+        break;
+    }
+  };
+
+  if (!editing) {
     return (
-      <div>
-        <table>
-          <tr className={status === 'saved' ? "saved-job" 
-            : status === 'applied' ? "applied-job" 
-            : status === 'first-interview' ? "first-interview"
-            : status === 'second-interview' ? "second-interview" 
-            : "third-plus-interview"  
-            }>
-            <td>{date}</td>
-            <td>{employer}</td>
-            <td>{position}</td>
-            <td>{jobSource}</td>
-            <td>{status}</td>
-            <td>{employerResponse}</td>
-            <td>{notes}</td>
-          <button onClick={() => setEditing(true)}>Edit</button>
-          </tr>
-        </table>
+      <div className="job-item">
+        <div className={status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}>
+          <div className="job-details-div">
+            <div>
+              <p>{`${date} - ${position} - ${employer}`}</p>
+            </div>
+            <div>
+              <p>
+                {jobSource} - {status} - {employerResponse}
+              </p>
+            </div>
+            <div className="notes-div">
+              <h5 className="notes-header">Notes:</h5>
+              <p className="notes-body">{notes}</p>
+            </div>
+          </div>
+
+          <div>
+            <button onClick={() => setEditing(true)}>Edit</button>
+          </div>
+        </div>
       </div>
     );
   } else {
@@ -41,7 +105,14 @@ const JobItem = (props) => {
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
 
-        <select name="status" id="status" value={status ? status : "saved"} onChange={(e) => setStatus(e.target.value)}>
+        <select
+          name="status"
+          id="status"
+          value={status ? status : "saved"}
+          onChange={(e) => {
+            setStatus(e.target.value);
+          }}
+        >
           <option value="saved">Saved</option>
           <option value="applied">Applied</option>
           <option value="first-interview">1st Interview</option>
@@ -50,7 +121,7 @@ const JobItem = (props) => {
         </select>
 
         <select name="response" id="response" value={employerResponse ? employerResponse : "None"} onChange={(e) => setEmployerResponse(e.target.value)}>
-          <option value=" "> </option>
+          <option value="pending">Awaiting Response</option>
           <option value="reject">Rejection</option>
           <option value="offer">Offer</option>
         </select>
@@ -60,16 +131,22 @@ const JobItem = (props) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            setEditing(false)
-          }}> Save </button>
+            checkAppliedStatus();
+            checkResponseStatus(employerResponse);
+            setEditing(false);
+          }}
+        >
+          {" "}
+          Save{" "}
+        </button>
       </form>
-    )
+    );
   }
 };
 
 const JobListArea = (props) => {
-  const jobs = props.jobs.map((job) => {
-    return <JobItem job={job} />;
+  const jobs = props.jobs.map((job, i) => {
+    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={i} />;
   });
 
   return (
