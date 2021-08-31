@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const JobItem = (props) => {
-  const [applied, setApplied] = useState(false);
+  const [applied, setApplied] = useState(props.job.applied);
   const [employer, setEmployer] = useState(props.job.employer);
   const [position, setPosition] = useState(props.job.position);
   const [jobSource, setJobSource] = useState(props.job.jobSource);

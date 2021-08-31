@@ -7,6 +7,7 @@ const InputForm = (props) => {
   const [jobSource, setJobSource] = useState("");
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState("");
+  const [applied, setApplied] = useState(false);
   const [employerResponse, setEmployerResponse] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -17,12 +18,14 @@ const InputForm = (props) => {
     jobSource,
     url,
     status,
+    applied,
     employerResponse,
     notes,
     key: props.jobListData.length,
   };
 
   const handleSubmit = (job) => {
+    setApplied(status !== "saved" ? true : false)
     props.setJobListData((prev) => prev.concat(job));
     setDate("");
     setEmployer("");

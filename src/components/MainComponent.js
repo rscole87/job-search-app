@@ -6,7 +6,8 @@ import JobListArea from "./JobListAreaComponent";
 
 const Main = () => {
   const [jobListData, setJobListData] = useState(JOBLIST);
-  const [appliedCount, setAppliedCount] = useState(0);
+  const [appliedCount, setAppliedCount] = useState(
+    jobListData.filter(job => job.applied).length);
   const [rejectCount, setRejectCount] = useState(0);
   const [offerCount, setOfferCount] = useState(0);
 
