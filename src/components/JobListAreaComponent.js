@@ -7,6 +7,7 @@ const JobItem = (props) => {
   const [position, setPosition] = useState(props.job.position);
   const [jobSource, setJobSource] = useState(props.job.jobSource);
   const [status, setStatus] = useState(props.job.status);
+  const [url, setUrl] = useState(props.job.url);
   const [employerResponse, setEmployerResponse] = useState(props.job.employerResponse);
   const [rejected, setRejected] = useState(false);
   const [offer, setOffer] = useState(false);
@@ -34,15 +35,15 @@ const JobItem = (props) => {
 
   const checkResponseStatus = (employerResponse) => {
     switch (employerResponse) {
-      case "pending": 
-        if (rejected === true){
-          setRejected(false)
-          props.setRejectCount(prev => prev - 1)
+      case "pending":
+        if (rejected === true) {
+          setRejected(false);
+          props.setRejectCount((prev) => prev - 1);
         }
 
-        if(offer === true){
-          setOffer(false)
-          props.setOfferCount(prev => prev - 1)
+        if (offer === true) {
+          setOffer(false);
+          props.setOfferCount((prev) => prev - 1);
         }
 
       case "reject":
@@ -53,10 +54,10 @@ const JobItem = (props) => {
           setRejected(true);
         }
 
-        if(offer === true){
-          props.setOfferCount(prev => prev - 1)
+        if (offer === true) {
+          props.setOfferCount((prev) => prev - 1);
         }
-      
+
         break;
       case "offer":
         if (offer !== true) {
@@ -66,8 +67,8 @@ const JobItem = (props) => {
           setOffer(true);
         }
 
-        if(rejected === true){
-          props.setRejectCount(prev => prev - 1)
+        if (rejected === true) {
+          props.setRejectCount((prev) => prev - 1);
         }
         break;
     }
@@ -75,26 +76,36 @@ const JobItem = (props) => {
 
   if (!editing) {
     return (
-      <div className="job-item">
-        <div className={status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}>
-          <div className="job-details-div">
-            <div>
-              <p>{`${date} - ${position} - ${employer}`}</p>
-            </div>
-            <div>
-              <p>
-                {jobSource} - {status} - {employerResponse}
-              </p>
-            </div>
-            <div className="notes-div">
-              <h5 className="notes-header">Notes:</h5>
-              <p className="notes-body">{notes}</p>
+      <div className={`job-item flex text-center ${jobItemKey % 2 === 0 ? "bg-white" : "bg-gray-50"} `} key={jobItemKey}>
+        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+          <div className="flex items-center justify-center">
+            <div className="ml-4">
+              <div className="text-sm font-medium text-gray-900">
+                {" "}
+                <h4>{position}</h4>
+              </div>
+              <div className="text-sm text-gray-500 ">{employer}</div>
             </div>
           </div>
+        </div>
 
+        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+          <div className="text-sm text-gray-900">{jobSource}</div>
+          <div className="text-sm text-gray-500"> <a href={url}>{url}</a></div>
+        </div>
+
+        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800 ${status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}`}>{status}</span>
+        </div>
+
+        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-grow">{notes}</div>
+
+        <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex-grow">
           <div>
             <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={() => props.deleteJobItem(jobItemKey)} >Delete</button>
+          </div>
+          <div>
+            <button onClick={() => props.deleteJobItem(jobItemKey)}>Delete</button>
           </div>
         </div>
       </div>
@@ -106,6 +117,7 @@ const JobItem = (props) => {
         <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
+        <input type="text" value={url} placeholder="URL" onChange={(e) => setUrl(e.target.value)} />
 
         <select
           name="status"
@@ -148,12 +160,39 @@ const JobItem = (props) => {
 
 const JobListArea = (props) => {
   const jobs = props.jobs.map((job, i) => {
-    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem}/>;
+    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
   });
 
   return (
     <>
-      <div>{jobs}</div>
+      <div className="flex flex-col mt-8">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <div className="min-w-full divide-y divide-gray-200">
+                <div className="bg-gray-50">
+                  <div className="flex ">
+                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                      Position
+                    </div>
+                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                      Source
+                    </div>
+                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                      Status
+                    </div>
+                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                      Notes
+                    </div>
+                    <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-grow"></div>
+                  </div>
+                </div>
+                {jobs}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

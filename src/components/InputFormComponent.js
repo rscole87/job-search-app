@@ -5,6 +5,7 @@ const InputForm = (props) => {
   const [employer, setEmployer] = useState("");
   const [position, setPosition] = useState("");
   const [jobSource, setJobSource] = useState("");
+  const [url, setUrl] = useState("");
   const [status, setStatus] = useState("");
   const [employerResponse, setEmployerResponse] = useState("");
   const [notes, setNotes] = useState("");
@@ -14,6 +15,7 @@ const InputForm = (props) => {
     employer,
     position,
     jobSource,
+    url,
     status,
     employerResponse,
     notes,
@@ -26,6 +28,7 @@ const InputForm = (props) => {
     setEmployer("");
     setPosition("");
     setJobSource("");
+    setUrl("");
     setStatus("");
     setEmployerResponse("");
     setNotes("");
@@ -38,6 +41,8 @@ const InputForm = (props) => {
         <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
+        <input type="text" value={url} placeholder="URL" onChange={(e) => setUrl(e.target.value)} />
+
 
         <select name="status" id="status" value={status ? status : setStatus("saved")} onChange={(e) => setStatus(e.target.value)}>
           <option value="saved">Saved</option>

@@ -5,6 +5,11 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
   line-height: 1.15;
   /* 1 */
@@ -45,7 +50,7 @@ h1 {
    */
 hr {
   -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -83,7 +88,7 @@ abbr[title] {
   text-decoration: underline;
   /* 2 */
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
   /* 2 */
 }
 
@@ -231,7 +236,7 @@ fieldset {
    */
 legend {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -266,7 +271,7 @@ textarea {
 [type="checkbox"],
 [type="radio"] {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -343,52 +348,28 @@ template {
 
 .job-item .saved-job {
   background-color: #ffe07a;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .job-item .applied-job {
   background-color: #f6ff7a;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .job-item .first-interview {
   background-color: #d0ff7a;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .job-item .second-interview {
   background-color: #7aff7a;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .job-item .third-plus-interview {
   background-color: #21e070;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
-.job-item .job-details-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
 
-.job-item .job-details-div h5, .job-item .job-details-div p {
+.job-item .job-details-div h5,
+.job-item .job-details-div p {
   margin: 0px 0px;
 }
 
-.job-item .job-details-div .notes-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
 /*# sourceMappingURL=App.css.map */
