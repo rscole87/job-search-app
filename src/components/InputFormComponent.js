@@ -36,9 +36,9 @@ const InputForm = (props) => {
 
   return (
     <>
-      <form action="">
-        <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
+      <form action="" className="px-8">
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
+        <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
         <input type="text" value={url} placeholder="URL" onChange={(e) => setUrl(e.target.value)} />
 
