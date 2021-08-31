@@ -19,7 +19,7 @@ const InputForm = (props) => {
     status,
     employerResponse,
     notes,
-    key: props.jobListData.length
+    key: props.jobListData.length,
   };
 
   const handleSubmit = (job) => {
@@ -37,12 +37,10 @@ const InputForm = (props) => {
   return (
     <>
       <form action="">
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
         <input type="text" value={url} placeholder="URL" onChange={(e) => setUrl(e.target.value)} />
-
 
         <select name="status" id="status" value={status ? status : setStatus("saved")} onChange={(e) => setStatus(e.target.value)}>
           <option value="saved">Saved</option>

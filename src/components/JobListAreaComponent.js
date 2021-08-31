@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const JobItem = (props) => {
   const [applied, setApplied] = useState(false);
-  const [date, setDate] = useState(props.job.date);
   const [employer, setEmployer] = useState(props.job.employer);
   const [position, setPosition] = useState(props.job.position);
   const [jobSource, setJobSource] = useState(props.job.jobSource);
@@ -77,7 +76,7 @@ const JobItem = (props) => {
   if (!editing) {
     return (
       <div className={`job-item flex text-center ${jobItemKey % 2 === 0 ? "bg-white" : "bg-gray-50"} `} key={jobItemKey}>
-        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+        <div className="px-6 py-4 whitespace-nowrap flex-1">
           <div className="flex items-center justify-center">
             <div className="ml-4">
               <div className="text-sm font-medium text-gray-900">
@@ -89,18 +88,18 @@ const JobItem = (props) => {
           </div>
         </div>
 
-        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+        <div className="px-6 py-4 whitespace-nowrap flex-1">
           <div className="text-sm text-gray-900">{jobSource}</div>
           <div className="text-sm text-gray-500"> <a href={url}>{url}</a></div>
         </div>
 
-        <div className="px-6 py-4 whitespace-nowrap flex-grow">
+        <div className="px-6 py-4 whitespace-nowrap flex-1">
           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800 ${status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}`}>{status}</span>
         </div>
 
-        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-grow">{notes}</div>
+        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1">{notes}</div>
 
-        <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex-grow">
+        <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex-1">
           <div>
             <button onClick={() => setEditing(true)}>Edit</button>
           </div>
@@ -113,7 +112,7 @@ const JobItem = (props) => {
   } else {
     return (
       <form action="">
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        
         <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
@@ -172,19 +171,19 @@ const JobListArea = (props) => {
               <div className="min-w-full divide-y divide-gray-200">
                 <div className="bg-gray-50">
                   <div className="flex ">
-                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Position
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Source
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Status
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-grow text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Notes
                     </div>
-                    <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-grow"></div>
+                    <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1"></div>
                   </div>
                 </div>
                 {jobs}
