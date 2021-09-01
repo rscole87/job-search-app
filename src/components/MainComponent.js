@@ -3,9 +3,10 @@ import JOBLIST from "../shared/jobListData";
 import Header from "./HeaderComponent";
 import InputForm from "./InputFormComponent";
 import JobListArea from "./JobListAreaComponent";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 const Main = () => {
-  const [jobListData, setJobListData] = useState(JOBLIST);
+  const [jobListData, setJobListData] = useLocalStorage("jobList", JOBLIST);
   const [appliedCount, setAppliedCount] = useState(
     jobListData.filter(job => job.applied).length);
   const [rejectCount, setRejectCount] = useState(0);
