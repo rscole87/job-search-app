@@ -41,8 +41,8 @@ const InputForm = (props) => {
     <>
       <form action="" className="px-8 grid grid-cols-5">
         <div>
-          <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
-          <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />
+          <input type="text" value={position} placeholder="Position" className="p-2"  onChange={(e) => setPosition(e.target.value)} />
+          <input type="text" value={employer} placeholder="Employer" className="p-2"  onChange={(e) => setEmployer(e.target.value)} />
         </div>
 
         <div>

@@ -13,6 +13,7 @@ const Main = () => {
   const [offerCount, setOfferCount] = useState(0);
 
   const deleteJobItem = (key) => {
+    
     setJobListData(jobListData.filter(job => job.key !== key))
   }
 
