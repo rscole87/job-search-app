@@ -4,7 +4,7 @@ import JobItem from "./JobItemComponent";
 
 const JobListArea = (props) => {
   const jobs = props.jobs.map((job, i) => {
-    return <JobItem job={job} setAppliedCount={props.setAppliedCount} rejectCount={props.rejectCount} setRejectCount={props.setRejectCount} offerCount={props.offerCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
+    return <JobItem job={job} appliedCount={props.appliedCount} setAppliedCount={props.setAppliedCount} rejectCount={props.rejectCount} setRejectCount={props.setRejectCount} offerCount={props.offerCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
   });
 
   return (

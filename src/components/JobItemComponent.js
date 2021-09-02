@@ -79,6 +79,22 @@ const JobItem = (props) => {
     }
   };
 
+  const handleDelete = () => {
+    if (applied && props.appliedCount > 0) {
+      props.setAppliedCount((prev) => prev - 1);
+    }
+
+    if (rejected && props.rejectCount > 0) {
+      props.setRejectCount((prev) => prev - 1);
+    }
+
+    if (offer && props.offerCount > 0) {
+      props.setOfferCount((prev) => prev - 1);
+    }
+
+    props.deleteJobItem(jobItemKey);
+  };
+
   if (!editing) {
     return (
       <div className={`job-item flex text-center ${jobItemKey % 2 === 0 ? "bg-white" : "bg-gray-50"} `} key={jobItemKey}>
@@ -113,7 +129,7 @@ const JobItem = (props) => {
             <button onClick={() => setEditing(true)}>Edit</button>
           </div>
           <div>
-            <button onClick={() => props.deleteJobItem(jobItemKey)}>Delete</button>
+            <button onClick={() => handleDelete()}>Delete</button>
           </div>
         </div>
       </div>

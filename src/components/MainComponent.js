@@ -13,7 +13,7 @@ const Main = () => {
   const [offerCount, setOfferCount] = useState(0);
 
   const deleteJobItem = (key) => {
-    
+
     setJobListData(jobListData.filter(job => job.key !== key))
   }
 
@@ -23,9 +23,9 @@ const Main = () => {
 
       <Header jobsCount={jobListData.length} appliedCount={appliedCount} rejectCount={rejectCount} offerCount={offerCount} />
 
-      <InputForm jobListData={jobListData}  setJobListData={setJobListData}/>
+      <InputForm jobListData={jobListData}  setJobListData={setJobListData} setAppliedCount={setAppliedCount}/>
 
-      <JobListArea jobs={jobListData} deleteJobItem={deleteJobItem} setAppliedCount={setAppliedCount} rejectCount={rejectCount} setRejectCount={setRejectCount} offerCount={offerCount} setOfferCount={setOfferCount}/>
+      <JobListArea jobs={jobListData} deleteJobItem={deleteJobItem} appliedCount={appliedCount} setAppliedCount={setAppliedCount} rejectCount={rejectCount} setRejectCount={setRejectCount} offerCount={offerCount} setOfferCount={setOfferCount}/>
       </div>
     </>
   );

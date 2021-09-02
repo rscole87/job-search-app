@@ -26,6 +26,11 @@ const InputForm = (props) => {
 
   const handleSubmit = (job) => {
     setApplied(status !== "saved" ? true : false);
+
+    if(applied){
+      props.setAppliedCount(prev => prev + 1)
+    }
+
     props.setJobListData((prev) => prev.concat(job));
     setDate("");
     setEmployer("");
