@@ -73,6 +73,7 @@ const InputForm = (props) => {
         <div>
           <button
             type="submit"
+            className="bg-gray-300 py-2 px-4 rounded"
             onClick={(e) => {
               e.preventDefault();
               handleSubmit(newJob);

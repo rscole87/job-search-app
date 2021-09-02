@@ -18,11 +18,14 @@ const Main = () => {
 
   return (
     <>
+      <div className="md:container md:mx-auto">
+
       <Header jobsCount={jobListData.length} appliedCount={appliedCount} rejectCount={rejectCount} offerCount={offerCount} />
 
       <InputForm jobListData={jobListData}  setJobListData={setJobListData}/>
 
-      <JobListArea jobs={jobListData} deleteJobItem={deleteJobItem} setAppliedCount={setAppliedCount} setRejectCount={setRejectCount} setOfferCount={setOfferCount}/>
+      <JobListArea jobs={jobListData} deleteJobItem={deleteJobItem} setAppliedCount={setAppliedCount} rejectCount={rejectCount} setRejectCount={setRejectCount} offerCount={offerCount} setOfferCount={setOfferCount}/>
+      </div>
     </>
   );
 };

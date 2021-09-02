@@ -54,7 +54,10 @@ const JobItem = (props) => {
         }
 
         if (offer === true) {
-          props.setOfferCount((prev) => prev - 1);
+          setOffer(false)
+          if(props.offerCount > 0){
+            props.setOfferCount((prev) => prev - 1);
+          }
         }
 
         break;
@@ -67,7 +70,10 @@ const JobItem = (props) => {
         }
 
         if (rejected === true) {
-          props.setRejectCount((prev) => prev - 1);
+          setRejected(false)
+          if(props.rejectCount > 0){
+            props.setRejectCount((prev) => prev - 1);
+          }
         }
         break;
     }
@@ -112,7 +118,6 @@ const JobItem = (props) => {
   } else {
     return (
       <form action="">
-        
         <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
         <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
         <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
@@ -124,8 +129,7 @@ const JobItem = (props) => {
           value={status ? status : "saved"}
           onChange={(e) => {
             setStatus(e.target.value);
-          }}
-        >
+          }}>
           <option value="saved">Saved</option>
           <option value="applied">Applied</option>
           <option value="first-interview">1st Interview</option>
@@ -147,8 +151,7 @@ const JobItem = (props) => {
             checkAppliedStatus();
             checkResponseStatus(employerResponse);
             setEditing(false);
-          }}
-        >
+          }}>
           {" "}
           Save{" "}
         </button>
@@ -159,7 +162,7 @@ const JobItem = (props) => {
 
 const JobListArea = (props) => {
   const jobs = props.jobs.map((job, i) => {
-    return <JobItem job={job} setAppliedCount={props.setAppliedCount} setRejectCount={props.setRejectCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
+    return <JobItem job={job} setAppliedCount={props.setAppliedCount} rejectCount={props.rejectCount} setRejectCount={props.setRejectCount} offerCount={props.offerCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
   });
 
   return (
