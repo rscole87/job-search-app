@@ -50,12 +50,12 @@ const InputForm = (props) => {
       <p className="px-8 mb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Enter job details in the form below.</p>
       <form action="" className="px-8 flex flex-col md:grid md:grid-cols-5">
         <div className="flex col-span-2">
-          <div>
+          <div className="md:flex-1">
             <input type="text" value={position} placeholder="Position:" className="md:p-2" onChange={(e) => setPosition(e.target.value)} />
             <input type="text" value={employer} placeholder="Employer:" className="md:p-2" onChange={(e) => setEmployer(e.target.value)} />
           </div>
 
-          <div>
+          <div className="md:flex-1">
             <input type="text" value={jobSource} placeholder="Source:" className="md:p-2" onChange={(e) => setJobSource(e.target.value)} />
             <input type="text" value={url} placeholder="URL:" className="md:p-2" onChange={(e) => setUrl(e.target.value)} />
           </div>

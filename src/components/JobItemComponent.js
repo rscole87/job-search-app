@@ -125,7 +125,9 @@ const JobItem = (props) => {
 
           <div className="px-6 py-4 whitespace-nowrap flex-1">
             <div className="text-sm text-gray-400">
-              <a href={url} className=" px-4 py-1 rounded border-2 border-gray-300 hover:text-gray-500 hover:border-gray-500 ">{jobSource}</a>
+              <a href={url} className=" px-4 py-1 rounded border-2 border-gray-300 hover:text-gray-500 hover:border-gray-500 ">
+                {jobSource}
+              </a>
             </div>
           </div>
         </div>
@@ -160,19 +162,19 @@ const JobItem = (props) => {
   } else {
     return (
       <form action="" className="text-sm px-8 flex flex-col md:text-md md:grid md:grid-cols-5">
-        <div className="flex pt-2 md:pt-0">
-          <div className="text-center">
+        <div className="flex pt-2 md:pt-2 md:col-span-2 md:justify-around">
+          <div className="text-center md:flex md:flex-col">
             <input type="text" value={position} placeholder="Position" className="text-center" onChange={(e) => setPosition(e.target.value)} />
             <input type="text" value={employer} placeholder="Employer" className="text-center" onChange={(e) => setEmployer(e.target.value)} />
           </div>
 
-          <div className="text-center">
+          <div className="text-center md:flex md:flex-col">
             <input type="text" value={jobSource} placeholder="Source" className="text-center" onChange={(e) => setJobSource(e.target.value)} />
             <input type="text" value={url} placeholder="URL" className="text-center" onChange={(e) => setUrl(e.target.value)} />
           </div>
         </div>
 
-        <div className="text-center my-2 md:my-0">
+        <div className="text-center my-2 md:flex md:flex-col md:my-0">
           <select
             name="status"
             id="status"
@@ -204,23 +206,25 @@ const JobItem = (props) => {
           </select>
         </div>
 
-        <div className="text-center">
-          <textarea type="text" placeholder="Notes" value={notes} className="p-2" rows="1" onChange={(e) => setNotes(e.target.value)} />
-        </div>
+        <div className="flex flex-col text-center md:flex-row md:col-span-2 md:justify-between">
+          <div className="text-center md:ml-8">
+            <textarea type="text" placeholder="Notes" value={notes} className="p-2" rows="1" onChange={(e) => setNotes(e.target.value)} />
+          </div>
 
-        <div className="col-span-2 flex justify-around">
-          <button
-            type="submit"
-            className="bg-green-200 py-2 px-4 rounded mb-3"
-            onClick={(e) => {
-              e.preventDefault();
-              checkAppliedStatus();
-              checkResponseStatus(employerResponse);
-              setEditing(false);
-            }}
-          >
-            Save{" "}
-          </button>
+          <div className="col-span-2 flex justify-around">
+            <button
+              type="submit"
+              className="bg-green-200 py-2 px-4 rounded mb-3"
+              onClick={(e) => {
+                e.preventDefault();
+                checkAppliedStatus();
+                checkResponseStatus(employerResponse);
+                setEditing(false);
+              }}
+            >
+              Save{" "}
+            </button>
+          </div>
         </div>
       </form>
     );
