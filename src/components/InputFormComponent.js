@@ -25,12 +25,9 @@ const InputForm = (props) => {
   };
 
   const handleSubmit = (job) => {
-    setApplied(status !== "saved" ? true : false);
-
-    if(applied){
+    if(status !== "saved"){
       props.setAppliedCount(prev => prev + 1)
     }
-
     props.setJobListData((prev) => prev.concat(job));
     setDate("");
     setEmployer("");
@@ -56,7 +53,10 @@ const InputForm = (props) => {
         </div>
 
         <div>
-          <select name="status" id="status" value={status ? status : setStatus("saved")} className="p-2" onChange={(e) => setStatus(e.target.value)}>
+          <select name="status" id="status" value={status ? status : setStatus("saved")} className="p-2" onChange={(e) => {
+            setStatus(e.target.value)
+            setApplied(e.target.value !== "saved" ? true : false)
+            }}>
             <option value="saved">Saved</option>
             <option value="applied">Applied</option>
             <option value="first-interview">1st Interview</option>

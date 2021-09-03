@@ -97,7 +97,7 @@ const JobItem = (props) => {
 
   if (!editing) {
     return (
-      <div className={`job-item flex text-center ${jobItemKey % 2 === 0 ? "bg-white" : "bg-gray-50"} `} key={jobItemKey}>
+      <div className={`job-item flex text-center ${offer ? "bg-green-100" : ""} ${rejected ? "bg-red-100" : ""} `} key={jobItemKey}>
         <div className="px-6 py-4 whitespace-nowrap flex-1">
           <div className="flex items-center justify-center">
             <div className="ml-4">
@@ -137,15 +137,16 @@ const JobItem = (props) => {
   } else {
     return (
       <form action="">
-        <input type="text" value={employer} placeholder="Employer" onChange={(e) => setEmployer(e.target.value)} />
-        <input type="text" value={position} placeholder="Position" onChange={(e) => setPosition(e.target.value)} />
-        <input type="text" value={jobSource} placeholder="Source" onChange={(e) => setJobSource(e.target.value)} />
-        <input type="text" value={url} placeholder="URL" onChange={(e) => setUrl(e.target.value)} />
+        <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />
+        <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
+        <input type="text" value={jobSource} placeholder="Source" className="p-2" onChange={(e) => setJobSource(e.target.value)} />
+        <input type="text" value={url} placeholder="URL" className="p-2" onChange={(e) => setUrl(e.target.value)} />
 
         <select
           name="status"
           id="status"
           value={status ? status : "saved"}
+          className="p-2"
           onChange={(e) => {
             setStatus(e.target.value);
           }}
@@ -157,15 +158,24 @@ const JobItem = (props) => {
           <option value="third-plus-interview">3rd+ Interview</option>
         </select>
 
-        <select name="response" id="response" value={employerResponse ? employerResponse : "None"} onChange={(e) => setEmployerResponse(e.target.value)}>
+        <select
+          name="response"
+          id="response"
+          value={employerResponse ? employerResponse : "None"}
+          className="p-2"
+          onChange={(e) => {
+            setEmployerResponse(e.target.value);
+          }}
+        >
           <option value="pending">Awaiting Response</option>
           <option value="reject">Rejection</option>
           <option value="offer">Offer</option>
         </select>
 
-        <textarea type="text" placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <textarea type="text" placeholder="Notes" value={notes} className="p-2" onChange={(e) => setNotes(e.target.value)} />
         <button
           type="submit"
+          className="bg-gray-300 py-2 px-4 rounded"
           onClick={(e) => {
             e.preventDefault();
             checkAppliedStatus();

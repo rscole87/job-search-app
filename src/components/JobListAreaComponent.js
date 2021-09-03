@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import JobItem from "./JobItemComponent";
 
 
@@ -16,16 +16,16 @@ const JobListArea = (props) => {
               <div className="min-w-full divide-y divide-gray-200">
                 <div className="bg-gray-50">
                   <div className="flex ">
-                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
+                    <div className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Position
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
+                    <div className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Source
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
+                    <div className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Status
                     </div>
-                    <div scope="col" className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
+                    <div className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Notes
                     </div>
                     <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1"></div>
