@@ -127,7 +127,7 @@ const JobItem = (props) => {
             <div className="text-sm text-gray-900">{jobSource}</div>
             <div className="text-sm text-gray-500">
               {" "}
-              <a href={url}>{url}</a>
+              <a href={`http://${url}`}>{url}</a>
             </div>
           </div>
         </div>
