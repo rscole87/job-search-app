@@ -8,6 +8,8 @@ const InputForm = (props) => {
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState("");
   const [applied, setApplied] = useState(false);
+  const [rejected, setRejected] = useState(false);
+  const [offer, setOffer] = useState(false);
   const [employerResponse, setEmployerResponse] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -19,14 +21,16 @@ const InputForm = (props) => {
     url,
     status,
     applied,
+    offer,
+    rejected,
     employerResponse,
     notes,
     key: props.jobListData.length,
   };
 
   const handleSubmit = (job) => {
-    if(status !== "saved"){
-      props.setAppliedCount(prev => prev + 1)
+    if (status !== "saved") {
+      props.setAppliedCount((prev) => prev + 1);
     }
     props.setJobListData((prev) => prev.concat(job));
     setDate("");
@@ -36,15 +40,18 @@ const InputForm = (props) => {
     setUrl("");
     setStatus("");
     setEmployerResponse("");
+    setOffer(false);
+    setRejected(false);
     setNotes("");
   };
 
   return (
     <>
+      <p className="px-8 mb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Enter job details in the form below.</p>
       <form action="" className="px-8 grid grid-cols-5">
         <div>
-          <input type="text" value={position} placeholder="Position" className="p-2"  onChange={(e) => setPosition(e.target.value)} />
-          <input type="text" value={employer} placeholder="Employer" className="p-2"  onChange={(e) => setEmployer(e.target.value)} />
+          <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
+          <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />
         </div>
 
         <div>
@@ -53,10 +60,16 @@ const InputForm = (props) => {
         </div>
 
         <div>
-          <select name="status" id="status" value={status ? status : setStatus("saved")} className="p-2" onChange={(e) => {
-            setStatus(e.target.value)
-            setApplied(e.target.value !== "saved" ? true : false)
-            }}>
+          <select
+            name="status"
+            id="status"
+            value={status ? status : setStatus("saved")}
+            className="p-2"
+            onChange={(e) => {
+              setStatus(e.target.value);
+              setApplied(e.target.value !== "saved" ? true : false);
+            }}
+          >
             <option value="saved">Saved</option>
             <option value="applied">Applied</option>
             <option value="first-interview">1st Interview</option>
@@ -64,7 +77,27 @@ const InputForm = (props) => {
             <option value="third-plus-interview">3rd+ Interview</option>
           </select>
 
-          <select name="response" id="response" value={employerResponse ? employerResponse : "None"} className="p-2" onChange={(e) => setEmployerResponse(e.target.value)}>
+          <select
+            name="response"
+            id="response"
+            value={employerResponse ? employerResponse : "pending"}
+            className={`p-2 ${!applied ? "hidden" : ""}`}
+            onChange={(e) => {
+              setEmployerResponse(e.target.value);
+              if (e.target.value === "pending") {
+                setRejected(false);
+                setOffer(false);
+              }
+              if (e.target.value === "reject") {
+                setRejected(true);
+                setOffer(false);
+              }
+              if (e.target.value === "offer") {
+                setOffer(true);
+                setRejected(false);
+              }
+            }}
+          >
             <option value="pending">Awaiting Response</option>
             <option value="reject">Rejection</option>
             <option value="offer">Offer</option>

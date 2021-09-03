@@ -8,8 +8,8 @@ const JobItem = (props) => {
   const [status, setStatus] = useState(props.job.status);
   const [url, setUrl] = useState(props.job.url);
   const [employerResponse, setEmployerResponse] = useState(props.job.employerResponse);
-  const [rejected, setRejected] = useState(false);
-  const [offer, setOffer] = useState(false);
+  const [rejected, setRejected] = useState(props.job.rejected);
+  const [offer, setOffer] = useState(props.job.offer);
   const [notes, setNotes] = useState(props.job.notes);
   const [editing, setEditing] = useState(false);
   const jobItemKey = props.job.key;
@@ -37,14 +37,19 @@ const JobItem = (props) => {
       case "pending":
         if (rejected === true) {
           setRejected(false);
-          props.setRejectCount((prev) => prev - 1);
+          if (props.rejectCount > 0) {
+            props.setRejectCount((prev) => prev - 1);
+          }
         }
 
         if (offer === true) {
           setOffer(false);
-          props.setOfferCount((prev) => prev - 1);
+          if (props.offerCount > 0) {
+            props.setOfferCount((prev) => prev - 1);
+          }
         }
-
+      break
+      
       case "reject":
         if (rejected !== true) {
           setRejected(true);
@@ -59,8 +64,8 @@ const JobItem = (props) => {
             props.setOfferCount((prev) => prev - 1);
           }
         }
-
         break;
+
       case "offer":
         if (offer !== true) {
           setOffer(true);
