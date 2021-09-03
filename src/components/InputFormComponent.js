@@ -48,18 +48,20 @@ const InputForm = (props) => {
   return (
     <>
       <p className="px-8 mb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Enter job details in the form below.</p>
-      <form action="" className="px-8 grid grid-cols-1 md:grid-cols-5">
-        <div>
-          <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
-          <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />
+      <form action="" className="px-8 flex flex-col md:grid md:grid-cols-5">
+        <div className="flex col-span-2">
+          <div className="flex-1">
+            <input type="text" value={position} placeholder="Position" className="md:p-2" onChange={(e) => setPosition(e.target.value)} />
+            <input type="text" value={employer} placeholder="Employer" className="md:p-2" onChange={(e) => setEmployer(e.target.value)} />
+          </div>
+
+          <div className="flex-shrink">
+            <input type="text" value={jobSource} placeholder="Source" className="md:p-2" onChange={(e) => setJobSource(e.target.value)} />
+            <input type="text" value={url} placeholder="URL" className="md:p-2" onChange={(e) => setUrl(e.target.value)} />
+          </div>
         </div>
 
-        <div>
-          <input type="text" value={jobSource} placeholder="Source" className="p-2" onChange={(e) => setJobSource(e.target.value)} />
-          <input type="text" value={url} placeholder="URL" className="p-2" onChange={(e) => setUrl(e.target.value)} />
-        </div>
-
-        <div>
+        <div className="flex">
           <select
             name="status"
             id="status"
@@ -104,9 +106,9 @@ const InputForm = (props) => {
           </select>
         </div>
 
-        <div className="col-span-2 flex justify-around">
+        <div className="col-span-2 flex flex-col text-center md:flex-row justify-around">
           <div>
-            <textarea type="text" placeholder="Notes" className="p-2" rows="1" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <textarea type="text" placeholder="Notes" className="p-2 mx-auto" rows="1" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
 
           <div>

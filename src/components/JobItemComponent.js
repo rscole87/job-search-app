@@ -11,7 +11,7 @@ const JobItem = (props) => {
   const [rejected, setRejected] = useState(props.job.rejected);
   const [offer, setOffer] = useState(props.job.offer);
   const [notes, setNotes] = useState(props.job.notes);
-  const [notesCollapsed, setNotesCollapsed] = useState(true);
+  const [notesCollapsed, setNotesCollapsed] = useState(window.innerWidth <= 575 ? true : false);
   const [editing, setEditing] = useState(false);
   const jobItemKey = props.job.key;
 
@@ -103,8 +103,8 @@ const JobItem = (props) => {
 
   const toggleNotesCollapse = () => {
     setNotesCollapsed(!notesCollapsed);
-    console.log(notesCollapsed)
-    console.log(window.innerWidth)
+    console.log(notesCollapsed);
+    console.log(window.innerWidth);
   };
 
   if (!editing) {
@@ -136,13 +136,13 @@ const JobItem = (props) => {
           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800 ${status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}`}>{status}</span>
         </div>
 
-        <div className="md:flex-none">
-          <div className={`px-3 py-2 mx-auto md:px-6 md:py-4 whitespace-normal text-sm text-gray-500 flex-grow md:flex-1 max-w-xs ${notesCollapsed && window.innerWidth <= 575 ? "hidden" : "block"}}`}>{notes}</div>
+        <div className={`${notesCollapsed ? "hidden" : "block"} md:flex-none`}>
+          <div className={`px-3 py-2 mx-auto md:px-6 md:py-4 whitespace-normal text-sm text-gray-500 flex-grow md:flex-1 max-w-xs }`}>{notes}</div>
         </div>
 
         <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium md:flex-grow flex justify-around md:justify-end">
           <button className="block md:hidden" onClick={() => toggleNotesCollapse()}>
-            View Notes
+            {notesCollapsed ? "View" : "Hide"} Notes
           </button>
 
           <div>
@@ -161,15 +161,17 @@ const JobItem = (props) => {
     );
   } else {
     return (
-      <form action="" className="px-8 grid grid-cols-1 md:grid-cols-5">
-        <div className="text-center">
-          <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
-          <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />
-        </div>
+      <form action="" className="text-sm px-8 flex flex-col md:text-md md:grid md:grid-cols-5">
+        <div className="flex pt-2 md:pt-0">
+          <div className="text-center">
+            <input type="text" value={position} placeholder="Position" className="text-center" onChange={(e) => setPosition(e.target.value)} />
+            <input type="text" value={employer} placeholder="Employer" className="text-center" onChange={(e) => setEmployer(e.target.value)} />
+          </div>
 
-        <div className="text-center">
-          <input type="text" value={jobSource} placeholder="Source" className="p-2" onChange={(e) => setJobSource(e.target.value)} />
-          <input type="text" value={url} placeholder="URL" className="p-2" onChange={(e) => setUrl(e.target.value)} />
+          <div className="text-center">
+            <input type="text" value={jobSource} placeholder="Source" className="text-center" onChange={(e) => setJobSource(e.target.value)} />
+            <input type="text" value={url} placeholder="URL" className="text-center" onChange={(e) => setUrl(e.target.value)} />
+          </div>
         </div>
 
         <div className="text-center">
@@ -204,11 +206,14 @@ const JobItem = (props) => {
           </select>
         </div>
 
-        <div className="col-span-2 flex justify-around">
+        <div className="text-center">
           <textarea type="text" placeholder="Notes" value={notes} className="p-2" rows="1" onChange={(e) => setNotes(e.target.value)} />
+        </div>
+
+        <div className="col-span-2 flex justify-around">
           <button
             type="submit"
-            className="bg-green-200 py-2 px-4 rounded"
+            className="bg-green-200 py-2 px-4 rounded mb-3"
             onClick={(e) => {
               e.preventDefault();
               checkAppliedStatus();
