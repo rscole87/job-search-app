@@ -124,10 +124,8 @@ const JobItem = (props) => {
           </div>
 
           <div className="px-6 py-4 whitespace-nowrap flex-1">
-            <div className="text-sm text-gray-900">{jobSource}</div>
-            <div className="text-sm text-gray-500">
-              {" "}
-              <a href={`http://${url}`}>{url}</a>
+            <div className="text-sm text-gray-400">
+              <a href={url} className=" px-4 py-1 rounded border-2 border-gray-300 hover:text-gray-500 hover:border-gray-500 ">{jobSource}</a>
             </div>
           </div>
         </div>
