@@ -11,6 +11,7 @@ const JobItem = (props) => {
   const [rejected, setRejected] = useState(props.job.rejected);
   const [offer, setOffer] = useState(props.job.offer);
   const [notes, setNotes] = useState(props.job.notes);
+  const [notesCollapsed, setNotesCollapsed] = useState(true);
   const [editing, setEditing] = useState(false);
   const jobItemKey = props.job.key;
 
@@ -100,48 +101,67 @@ const JobItem = (props) => {
     props.deleteJobItem(jobItemKey);
   };
 
+  const toggleNotesCollapse = () => {
+    setNotesCollapsed(!notesCollapsed);
+    console.log(notesCollapsed)
+    console.log(window.innerWidth)
+  };
+
   if (!editing) {
     return (
-      <div className={`job-item flex text-center ${offer ? "bg-green-100" : ""} ${rejected ? "bg-red-100" : ""} `} key={jobItemKey}>
-        <div className="px-6 py-4 whitespace-nowrap flex-1">
-          <div className="flex items-center justify-center">
-            <div className="ml-4">
-              <div className="text-sm font-medium text-gray-900">
-                {" "}
-                <h4>{position}</h4>
+      <div className={`job-item flex flex-col md:grid md:grid-cols-5 flex-wrap md:flex-nowrap text-center ${offer ? "bg-green-100" : ""} ${rejected ? "bg-red-100" : ""} `} key={jobItemKey}>
+        <div className="flex col-span-2">
+          <div className="px-6 py-4 whitespace-nowrap flex-1">
+            <div className="flex items-center justify-center">
+              <div className="ml-4">
+                <div className="text-sm font-medium text-gray-900">
+                  {" "}
+                  <h4>{position}</h4>
+                </div>
+                <div className="text-sm text-gray-500 ">{employer}</div>
               </div>
-              <div className="text-sm text-gray-500 ">{employer}</div>
+            </div>
+          </div>
+
+          <div className="px-6 py-4 whitespace-nowrap flex-1">
+            <div className="text-sm text-gray-900">{jobSource}</div>
+            <div className="text-sm text-gray-500">
+              {" "}
+              <a href={url}>{url}</a>
             </div>
           </div>
         </div>
 
-        <div className="px-6 py-4 whitespace-nowrap flex-1">
-          <div className="text-sm text-gray-900">{jobSource}</div>
-          <div className="text-sm text-gray-500">
-            {" "}
-            <a href={url}>{url}</a>
-          </div>
-        </div>
-
-        <div className="px-6 py-4 whitespace-nowrap flex-1">
+        <div className="px-3 md:px-6 md:py-4 whitespace-nowrap flex-none md:flex-1">
           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800 ${status.toLowerCase() === "saved" ? "saved-job" : status.toLowerCase() === "applied" ? "applied-job" : status.toLowerCase() === "first-interview" ? "first-interview" : status.toLowerCase() === "second-interview" ? "second-interview" : "third-plus-interview"}`}>{status}</span>
         </div>
 
-        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1">{notes}</div>
+        <div className="md:flex-none">
+          <div className={`px-3 py-2 mx-auto md:px-6 md:py-4 whitespace-normal text-sm text-gray-500 flex-grow md:flex-1 max-w-xs ${notesCollapsed && window.innerWidth <= 575 ? "hidden" : "block"}}`}>{notes}</div>
+        </div>
 
-        <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex-1">
+        <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium md:flex-grow flex justify-around md:justify-end">
+          <button className="block md:hidden" onClick={() => toggleNotesCollapse()}>
+            View Notes
+          </button>
+
           <div>
-            <button onClick={() => setEditing(true)}>Edit</button>
+            <button className="mx-4 md:flex-none" onClick={() => setEditing(true)}>
+              Edit
+            </button>
           </div>
+
           <div>
-            <button onClick={() => handleDelete()}>Delete</button>
+            <button className="md:flex-none" onClick={() => handleDelete()}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
     );
   } else {
     return (
-      <form action="" className="px-8 grid grid-cols-5">
+      <form action="" className="px-8 grid grid-cols-1 md:grid-cols-5">
         <div className="text-center">
           <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
           <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />

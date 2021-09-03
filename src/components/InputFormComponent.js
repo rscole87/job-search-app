@@ -48,7 +48,7 @@ const InputForm = (props) => {
   return (
     <>
       <p className="px-8 mb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Enter job details in the form below.</p>
-      <form action="" className="px-8 grid grid-cols-5">
+      <form action="" className="px-8 grid grid-cols-1 md:grid-cols-5">
         <div>
           <input type="text" value={position} placeholder="Position" className="p-2" onChange={(e) => setPosition(e.target.value)} />
           <input type="text" value={employer} placeholder="Employer" className="p-2" onChange={(e) => setEmployer(e.target.value)} />

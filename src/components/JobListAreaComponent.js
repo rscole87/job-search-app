@@ -14,7 +14,7 @@ const JobListArea = (props) => {
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <div className="min-w-full divide-y divide-gray-200">
-                <div className="bg-gray-50">
+                <div className="bg-gray-50 hidden md:block">
                   <div className="flex ">
                     <div className="px-6 py-3 flex-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider text-center">
                       Position
