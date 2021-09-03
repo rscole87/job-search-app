@@ -104,21 +104,23 @@ const InputForm = (props) => {
           </select>
         </div>
 
-        <div>
-          <textarea type="text" placeholder="Notes" className="p-2" rows="1" value={notes} onChange={(e) => setNotes(e.target.value)} />
-        </div>
+        <div className="col-span-2 flex justify-around">
+          <div>
+            <textarea type="text" placeholder="Notes" className="p-2" rows="1" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          </div>
 
-        <div>
-          <button
-            type="submit"
-            className="bg-gray-300 py-2 px-4 rounded"
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit(newJob);
-            }}
-          >
-            Add Job{" "}
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="bg-gray-300 py-2 px-4 rounded"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(newJob);
+              }}
+            >
+              Add Job{" "}
+            </button>
+          </div>
         </div>
       </form>
     </>
