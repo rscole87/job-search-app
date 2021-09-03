@@ -174,7 +174,7 @@ const JobItem = (props) => {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="text-center my-2 md:my-0">
           <select
             name="status"
             id="status"

@@ -61,7 +61,7 @@ const InputForm = (props) => {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="flex my-2 md:my-0">
           <select
             name="status"
             id="status"
