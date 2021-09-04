@@ -47,7 +47,7 @@ const InputForm = (props) => {
 
   return (
     <>
-      <p className="px-8 mb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Enter job details in the form below.</p>
+      <p className="px-8 mb-4 text-xs font-bold text-gray-500 ">Enter job details in the form below.</p>
       <form action="" className="px-8 flex flex-col md:grid md:grid-cols-5">
         <div className="flex col-span-2">
           <div className="md:flex-1">
