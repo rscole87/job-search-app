@@ -10,7 +10,7 @@ const InputForm = (props) => {
   const [applied, setApplied] = useState(false);
   const [rejected, setRejected] = useState(false);
   const [offer, setOffer] = useState(false);
-  const [employerResponse, setEmployerResponse] = useState("");
+  const [employerResponse, setEmployerResponse] = useState("pending");
   const [notes, setNotes] = useState("");
 
   let newJob = {
@@ -25,13 +25,10 @@ const InputForm = (props) => {
     rejected,
     employerResponse,
     notes,
-    key: props.jobListData.length,
+    key: `${employer[0]}${position[0]}${props.jobListData.length}`,
   };
 
   const handleSubmit = (job) => {
-    if (status !== "saved") {
-      props.setAppliedCount((prev) => prev + 1);
-    }
     props.setJobListData((prev) => prev.concat(job));
     setDate("");
     setEmployer("");
@@ -40,6 +37,7 @@ const InputForm = (props) => {
     setUrl("");
     setStatus("");
     setEmployerResponse("");
+    setApplied(false);
     setOffer(false);
     setRejected(false);
     setNotes("");
@@ -82,21 +80,26 @@ const InputForm = (props) => {
           <select
             name="response"
             id="response"
-            value={employerResponse ? employerResponse : "pending"}
+            value={employerResponse}
             className={`p-2 ${!applied ? "hidden" : ""}`}
             onChange={(e) => {
               setEmployerResponse(e.target.value);
-              if (e.target.value === "pending") {
-                setRejected(false);
-                setOffer(false);
-              }
-              if (e.target.value === "reject") {
-                setRejected(true);
-                setOffer(false);
-              }
-              if (e.target.value === "offer") {
-                setOffer(true);
-                setRejected(false);
+              switch (e.target.value) {
+                case "pending":
+                  setRejected(false);
+                  setOffer(false);
+                  break;
+
+                case "reject":
+                  setRejected(true);
+                  setOffer(false);
+                  break;
+
+                case "offer":
+                  setOffer(true);
+                  setRejected(false);
+                  break;
+                default:
               }
             }}
           >

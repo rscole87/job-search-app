@@ -14,19 +14,31 @@ const JobItem = (props) => {
   const [notesCollapsed, setNotesCollapsed] = useState(window.innerWidth <= 575 ? true : false);
   const [editing, setEditing] = useState(false);
   const jobItemKey = props.job.key;
-
+  
+  let updatedJobItemData = {
+    employer,
+    position,
+    jobSource,
+    url,
+    status,
+    applied,
+    offer,
+    rejected,
+    employerResponse,
+    notes,
+    key: jobItemKey,
+  };
+  
   const checkAppliedStatus = () => {
     if (status !== "saved") {
       if (applied !== true) {
         setApplied(true);
-        props.setAppliedCount((prev) => prev + 1);
       } else {
         setApplied(true);
       }
     } else {
       if (applied !== false) {
         setApplied(false);
-        props.setAppliedCount((prev) => prev - 1);
       } else {
         setApplied(false);
       }
@@ -36,75 +48,39 @@ const JobItem = (props) => {
   const checkResponseStatus = (employerResponse) => {
     switch (employerResponse) {
       case "pending":
-        if (rejected === true) {
-          setRejected(false);
-          if (props.rejectCount > 0) {
-            props.setRejectCount((prev) => prev - 1);
-          }
-        }
-
-        if (offer === true) {
-          setOffer(false);
-          if (props.offerCount > 0) {
-            props.setOfferCount((prev) => prev - 1);
-          }
-        }
+        console.log("Case pending");
+        setRejected(false);
+        setOffer(false);
         break;
 
       case "reject":
-        if (rejected !== true) {
-          setRejected(true);
-          props.setRejectCount((prev) => prev + 1);
-        } else {
-          setRejected(true);
-        }
-
-        if (offer === true) {
-          setOffer(false);
-          if (props.offerCount > 0) {
-            props.setOfferCount((prev) => prev - 1);
-          }
-        }
+        console.log("Case reject");
+        setRejected(true);
+        setOffer(false);
         break;
 
       case "offer":
-        if (offer !== true) {
-          setOffer(true);
-          props.setOfferCount((prev) => prev + 1);
-        } else {
-          setOffer(true);
-        }
-
-        if (rejected === true) {
-          setRejected(false);
-          if (props.rejectCount > 0) {
-            props.setRejectCount((prev) => prev - 1);
-          }
-        }
+        console.log("Case offer");
+        setRejected(false);
+        setOffer(true);
         break;
+      default:
+        console.log("Case default");
     }
   };
 
   const handleDelete = () => {
-    if (applied && props.appliedCount > 0) {
-      props.setAppliedCount((prev) => prev - 1);
-    }
-
-    if (rejected && props.rejectCount > 0) {
-      props.setRejectCount((prev) => prev - 1);
-    }
-
-    if (offer && props.offerCount > 0) {
-      props.setOfferCount((prev) => prev - 1);
-    }
-
     props.deleteJobItem(jobItemKey);
+  };
+
+  const handleUpdate = (updatedJobItemData) => {
+    checkAppliedStatus();
+    checkResponseStatus(employerResponse);
+    props.updateJobItem(jobItemKey, updatedJobItemData);
   };
 
   const toggleNotesCollapse = () => {
     setNotesCollapsed(!notesCollapsed);
-    console.log(notesCollapsed);
-    console.log(window.innerWidth);
   };
 
   if (!editing) {
@@ -194,13 +170,15 @@ const JobItem = (props) => {
           <select
             name="response"
             id="response"
-            value={employerResponse ? employerResponse : "None"}
+            value={employerResponse}
             className="p-2"
             onChange={(e) => {
               setEmployerResponse(e.target.value);
             }}
           >
-            <option value="pending">Awaiting Response</option>
+            <option value="pending" defaultValue>
+              Awaiting Response
+            </option>
             <option value="reject">Rejection</option>
             <option value="offer">Offer</option>
           </select>
@@ -217,8 +195,7 @@ const JobItem = (props) => {
               className="bg-green-200 py-2 px-4 rounded mb-3"
               onClick={(e) => {
                 e.preventDefault();
-                checkAppliedStatus();
-                checkResponseStatus(employerResponse);
+                handleUpdate(updatedJobItemData);
                 setEditing(false);
               }}
             >

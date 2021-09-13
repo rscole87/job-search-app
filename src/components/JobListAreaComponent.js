@@ -2,11 +2,12 @@ import React from "react";
 import JobItem from "./JobItemComponent";
 
 
-const JobListArea = (props) => {
-  const jobs = props.jobs.map((job, i) => {
-    return <JobItem job={job} appliedCount={props.appliedCount} setAppliedCount={props.setAppliedCount} rejectCount={props.rejectCount} setRejectCount={props.setRejectCount} offerCount={props.offerCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} />;
-  });
 
+const JobListArea = (props) => {
+  const savedJobs = props.jobListData.map((job, i) => {
+    return <JobItem jobListData={props.jobListData} job={job} appliedCount={props.appliedCount} setAppliedCount={props.setAppliedCount} rejectCount={props.rejectCount} setRejectCount={props.setRejectCount} offerCount={props.offerCount} setOfferCount={props.setOfferCount} key={job.key} deleteJobItem={props.deleteJobItem} updateJobItem={props.updateJobItem}/>;
+  });
+  
   return (
     <>
       <div className="flex flex-col mt-8">
@@ -31,7 +32,7 @@ const JobListArea = (props) => {
                     <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1"></div>
                   </div>
                 </div>
-                {jobs}
+                {savedJobs}
               </div>
             </div>
           </div>
