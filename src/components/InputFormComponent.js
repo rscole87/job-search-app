@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 const InputForm = (props) => {
   const [employer, setEmployer] = useState("");
-  const [applied, setApplied] = useState(true);
+  const [applied, setApplied] = useState(false);
+  const [offer, setOffer] = useState(false);
+  const [rejected, setRejected] = useState(false);
   const [position, setPosition] = useState("");
   const [jobSource, setJobSource] = useState("");
   const [url, setUrl] = useState("");
@@ -17,22 +19,11 @@ const InputForm = (props) => {
     url,
     status,
     applied,
-    offer: null,
-    rejected: null,
+    offer,
+    rejected,
     employerResponse,
     notes,
     key: `${employer[0]}${position[0]}${props.jobListData.length}`,
-  };
-
-
-  const setOffer = (bool) => {
-    newJob.offer = bool;
-    newJob.rejected = !bool;
-  };
-
-  const setPending = () => {
-    newJob.rejected = false;
-    newJob.offer = false;
   };
 
   const handleSubmit = (job) => {
@@ -92,10 +83,13 @@ const InputForm = (props) => {
             onChange={(e) => {
               setEmployerResponse(e.target.value);
               if (e.target.value === "pending") {
-                setPending();
+                setOffer(false)
+                setRejected(false)
               } else if (e.target.value === "offer") {
                 setOffer(true);
+                setRejected(false)
               } else {
+                setRejected(true);
                 setOffer(false);
               }
             }}

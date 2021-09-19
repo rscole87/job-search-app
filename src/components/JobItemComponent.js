@@ -27,7 +27,6 @@ const JobItem = (props) => {
   };
   
   const setApplied = (status) => {
-    console.log(status)
     if(status === "saved"){
       updatedJobItemData.applied = false;
     } else {
@@ -182,7 +181,6 @@ const JobItem = (props) => {
                 e.preventDefault();
                 handleUpdate(updatedJobItemData);
                 setEditing(false);
-                console.log(props.jobListData)
               }}
             >
               Save{" "}

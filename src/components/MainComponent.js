@@ -27,7 +27,6 @@ const Main = () => {
       }
       return job;
     });
-    console.log(updatedObj)
     setJobListData(updatedJobList);
   };
 
