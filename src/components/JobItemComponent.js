@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 
 const JobItem = (props) => {
-  const [applied, setApplied] = useState(props.job.applied);
   const [employer, setEmployer] = useState(props.job.employer);
   const [position, setPosition] = useState(props.job.position);
   const [jobSource, setJobSource] = useState(props.job.jobSource);
   const [status, setStatus] = useState(props.job.status);
   const [url, setUrl] = useState(props.job.url);
   const [employerResponse, setEmployerResponse] = useState(props.job.employerResponse);
-  const [rejected, setRejected] = useState(props.job.rejected);
-  const [offer, setOffer] = useState(props.job.offer);
   const [notes, setNotes] = useState(props.job.notes);
   const [notesCollapsed, setNotesCollapsed] = useState(window.innerWidth <= 575 ? true : false);
   const [editing, setEditing] = useState(false);
@@ -21,61 +18,41 @@ const JobItem = (props) => {
     jobSource,
     url,
     status,
-    applied,
-    offer,
-    rejected,
+    applied: props.job.applied ? props.job.applied : null,
+    offer: props.job.offer ? props.job.offer : null,
+    rejected: props.job.rejected ? props.job.rejected : null,
     employerResponse,
     notes,
     key: jobItemKey,
   };
   
-  const checkAppliedStatus = () => {
-    if (status !== "saved") {
-      if (applied !== true) {
-        setApplied(true);
-      } else {
-        setApplied(true);
-      }
+  const setApplied = (status) => {
+    console.log(status)
+    if(status === "saved"){
+      updatedJobItemData.applied = false;
     } else {
-      if (applied !== false) {
-        setApplied(false);
-      } else {
-        setApplied(false);
-      }
+      updatedJobItemData.applied = true;
     }
+    props.updateJobItem(jobItemKey ,updatedJobItemData)
   };
-
-  const checkResponseStatus = (employerResponse) => {
-    switch (employerResponse) {
-      case "pending":
-        console.log("Case pending");
-        setRejected(false);
-        setOffer(false);
-        break;
-
-      case "reject":
-        console.log("Case reject");
-        setRejected(true);
-        setOffer(false);
-        break;
-
-      case "offer":
-        console.log("Case offer");
-        setRejected(false);
-        setOffer(true);
-        break;
-      default:
-        console.log("Case default");
-    }
+  
+  const setOffer = (bool) => {
+    updatedJobItemData.offer = bool;
+    updatedJobItemData.rejected = !bool;
+    props.updateJobItem(jobItemKey ,updatedJobItemData)
   };
+  
+  const setPending = () => {
+    updatedJobItemData.rejected = false;
+    updatedJobItemData.offer = false;
+    props.updateJobItem(jobItemKey ,updatedJobItemData)
+  }
 
   const handleDelete = () => {
     props.deleteJobItem(jobItemKey);
   };
 
   const handleUpdate = (updatedJobItemData) => {
-    checkAppliedStatus();
-    checkResponseStatus(employerResponse);
     props.updateJobItem(jobItemKey, updatedJobItemData);
   };
 
@@ -85,7 +62,7 @@ const JobItem = (props) => {
 
   if (!editing) {
     return (
-      <div className={`job-item flex flex-col md:grid md:grid-cols-5 flex-wrap md:flex-nowrap text-center ${offer ? "bg-green-100" : ""} ${rejected ? "bg-red-100" : ""} `} key={jobItemKey}>
+      <div className={`job-item flex flex-col md:grid md:grid-cols-5 flex-wrap md:flex-nowrap text-center ${updatedJobItemData.offer ? "bg-green-100" : ""} ${updatedJobItemData.rejected ? "bg-red-100" : ""} `} key={jobItemKey}>
         <div className="flex col-span-2">
           <div className="px-6 py-4 whitespace-nowrap flex-1">
             <div className="flex items-center justify-center">
@@ -158,6 +135,7 @@ const JobItem = (props) => {
             className="p-2"
             onChange={(e) => {
               setStatus(e.target.value);
+              setApplied(e.target.value);
             }}
           >
             <option value="saved">Saved</option>
@@ -174,6 +152,13 @@ const JobItem = (props) => {
             className="p-2"
             onChange={(e) => {
               setEmployerResponse(e.target.value);
+              if(e.target.value === "pending"){
+                setPending()
+              } else if (e.target.value === "offer"){
+                setOffer(true)
+              } else {
+                setOffer(false)
+              }
             }}
           >
             <option value="pending" defaultValue>
@@ -197,6 +182,7 @@ const JobItem = (props) => {
                 e.preventDefault();
                 handleUpdate(updatedJobItemData);
                 setEditing(false);
+                console.log(props.jobListData)
               }}
             >
               Save{" "}

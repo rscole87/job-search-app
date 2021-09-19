@@ -1,45 +1,48 @@
 import React, { useState } from "react";
 
 const InputForm = (props) => {
-  const [date, setDate] = useState("");
   const [employer, setEmployer] = useState("");
+  const [applied, setApplied] = useState(true);
   const [position, setPosition] = useState("");
   const [jobSource, setJobSource] = useState("");
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState("");
-  const [applied, setApplied] = useState(false);
-  const [rejected, setRejected] = useState(false);
-  const [offer, setOffer] = useState(false);
   const [employerResponse, setEmployerResponse] = useState("pending");
   const [notes, setNotes] = useState("");
 
   let newJob = {
-    date,
     employer,
     position,
     jobSource,
     url,
     status,
     applied,
-    offer,
-    rejected,
+    offer: null,
+    rejected: null,
     employerResponse,
     notes,
     key: `${employer[0]}${position[0]}${props.jobListData.length}`,
   };
 
+
+  const setOffer = (bool) => {
+    newJob.offer = bool;
+    newJob.rejected = !bool;
+  };
+
+  const setPending = () => {
+    newJob.rejected = false;
+    newJob.offer = false;
+  };
+
   const handleSubmit = (job) => {
     props.setJobListData((prev) => prev.concat(job));
-    setDate("");
     setEmployer("");
     setPosition("");
     setJobSource("");
     setUrl("");
     setStatus("");
     setEmployerResponse("");
-    setApplied(false);
-    setOffer(false);
-    setRejected(false);
     setNotes("");
   };
 
@@ -67,7 +70,11 @@ const InputForm = (props) => {
             className="p-2"
             onChange={(e) => {
               setStatus(e.target.value);
-              setApplied(e.target.value !== "saved" ? true : false);
+              if (e.target.value === "saved") {
+                setApplied(false);
+              } else {
+                setApplied(true);
+              }
             }}
           >
             <option value="saved">Saved</option>
@@ -81,25 +88,15 @@ const InputForm = (props) => {
             name="response"
             id="response"
             value={employerResponse}
-            className={`p-2 ${!applied ? "hidden" : ""}`}
+            className={`p-2 ${!newJob.applied ? "hidden" : ""}`}
             onChange={(e) => {
               setEmployerResponse(e.target.value);
-              switch (e.target.value) {
-                case "pending":
-                  setRejected(false);
-                  setOffer(false);
-                  break;
-
-                case "reject":
-                  setRejected(true);
-                  setOffer(false);
-                  break;
-
-                case "offer":
-                  setOffer(true);
-                  setRejected(false);
-                  break;
-                default:
+              if (e.target.value === "pending") {
+                setPending();
+              } else if (e.target.value === "offer") {
+                setOffer(true);
+              } else {
+                setOffer(false);
               }
             }}
           >

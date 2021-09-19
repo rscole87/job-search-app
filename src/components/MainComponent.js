@@ -5,9 +5,6 @@ import JobListArea from "./JobListAreaComponent";
 
 const Main = () => {
   const [jobListData, setJobListData] = useState([]);
-  const [appliedCount, setAppliedCount] = useState(jobListData.filter((job) => job.applied).length);
-  const [rejectCount, setRejectCount] = useState(jobListData.filter((job) => job.rejected).length);
-  const [offerCount, setOfferCount] = useState(jobListData.filter((job) => job.offer).length);
 
   useEffect(() => {
     if (localStorage.getItem("jobListData")) {
@@ -17,9 +14,6 @@ const Main = () => {
 
   useEffect(() => {
     localStorage.setItem("jobListData", JSON.stringify(jobListData));
-    setAppliedCount(jobListData.filter((job) => job.applied).length);
-    setRejectCount(jobListData.filter((job) => job.rejected).length);
-    setOfferCount(jobListData.filter((job) => job.offer).length);
   }, [jobListData]);
 
   const deleteJobItem = (key) => {
@@ -33,7 +27,7 @@ const Main = () => {
       }
       return job;
     });
-
+    console.log(updatedObj)
     setJobListData(updatedJobList);
   };
 
@@ -41,13 +35,21 @@ const Main = () => {
   return (
     <>
       <div className="md:container md:mx-auto">
-        <Header jobsCount={jobListData.length} appliedCount={appliedCount} rejectCount={rejectCount} offerCount={offerCount} />
+        <Header jobsCount={jobListData.length} 
+          appliedCount={jobListData.filter((job) => job.applied).length} 
+          rejectCount={jobListData.filter((job) => job.rejected).length} 
+          offerCount={jobListData.filter((job) => job.offer).length} 
+        />
+        
+        <InputForm jobListData={jobListData} setJobListData={setJobListData} />
 
-        {/* <InputForm jobListData={jobListData} setJobListData={setJobListData} /> */}
-        <InputForm jobListData={jobListData} setJobListData={setJobListData} setAppliedCount={setAppliedCount} />
-
-        {/* <JobListArea jobListData={jobListData} deleteJobItem={deleteJobItem} updateJobItem={updateJobItem} appliedCount={appliedCount} rejectCount={rejectCount} offerCount={offerCount} /> */}
-        <JobListArea jobListData={jobListData} deleteJobItem={deleteJobItem} updateJobItem={updateJobItem} appliedCount={appliedCount} setAppliedCount={setAppliedCount} rejectCount={rejectCount} setRejectCount={setRejectCount} offerCount={offerCount} setOfferCount={setOfferCount} />
+        <JobListArea jobListData={jobListData} 
+          deleteJobItem={deleteJobItem} 
+          updateJobItem={updateJobItem}  
+          appliedCount={jobListData.filter((job) => job.applied).length} 
+          rejectCount={jobListData.filter((job) => job.rejected).length} 
+          offerCount={jobListData.filter((job) => job.offer).length}
+        />
       </div>
     </>
   );
