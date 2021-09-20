@@ -31,6 +31,9 @@ const InputForm = (props) => {
     setEmployer("");
     setPosition("");
     setJobSource("");
+    setApplied(false);
+    setOffer(false);
+    setRejected(false);
     setUrl("");
     setStatus("");
     setEmployerResponse("");
