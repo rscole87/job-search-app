@@ -33,7 +33,7 @@ const Main = () => {
 
   return (
     <>
-      <div className="md:container md:mx-auto">
+      <div className="md:container md:mx-auto pb-52">
         <Header jobsCount={jobListData.length} 
           appliedCount={jobListData.filter((job) => job.applied).length} 
           rejectCount={jobListData.filter((job) => job.rejected).length} 
